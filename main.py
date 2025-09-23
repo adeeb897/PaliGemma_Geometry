@@ -1,5 +1,5 @@
 from model import Model
-from fetch_images import fetch_all_images_for
+from fetch_images import download_images_by_category
 from data_processing import DataProcessing
 from plotting import plot_category_clusters, proj_2d_single_diff, proj_2d
 import torch
@@ -513,7 +513,7 @@ data: dict[str, list[str]] = {
     ],
 }
 categories = list(data.keys())
-image_paths: dict[str, list[str]] = fetch_all_images_for(data, "data/animal_images")
+image_paths: dict[str, list[str]] = download_images_by_category(data, "data/animal_images")
 
 # Calculate embeddings
 data_processing = DataProcessing(model, device)

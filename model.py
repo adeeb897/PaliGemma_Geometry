@@ -7,7 +7,6 @@ from transformers import (
 )
 from PIL import Image
 
-
 class Model:
 
     def __init__(self, model_name: str, device: torch.device):
@@ -16,7 +15,7 @@ class Model:
         self.model = AutoModelForImageTextToText.from_pretrained(
             # self.model = AutoModelForCausalLM.from_pretrained(
             model_name,
-            torch_dtype=torch.bfloat16,
+            dtype=torch.bfloat16,
             device_map=self.device,
         )
 
@@ -107,12 +106,6 @@ class Model:
                     do_rescale=True,
                     do_normalize=True,
                 ).to(self.device)
-
-                # outputs = self.model(
-                #     input_ids=inputs["input_ids"],
-                #     pixel_values=inputs["pixel_values"],
-                #     output_hidden_states=True,
-                # )
 
                 vision_outputs = self.model.vision_tower(inputs["pixel_values"])
                 embeddings = self.model.multi_modal_projector(
